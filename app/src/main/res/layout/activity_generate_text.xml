@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.android.qrcommunication.generate.GenerateTextActivity">
+
+    <TextView
+        android:id="@+id/insertText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insert Text" />
+
+    <EditText
+        android:id="@+id/textQR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/ecmText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error Correction Level:  " />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:id="@+id/spinner"></Spinner>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonTextGenerate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="buttonQR"
+        android:text="Generate QR Code" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#9E9E9E" />
+
+    <ImageView
+        android:id="@+id/qrImg"
+        android:layout_width="match_parent"
+        android:layout_height="300sp"
+        android:layout_gravity="center_horizontal"
+        android:background="#E0E0E0" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#9E9E9E" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#01579B"
+        android:text="Generated QR Code" />
+</LinearLayout>

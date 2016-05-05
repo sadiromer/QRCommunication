@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.qrcommunication.scan.ScanActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Single"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/buttonDecodeSingle"
+        android:onClick="buttonDecodeSingle"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Continuous"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/buttonDecodeContinuous"
+        android:onClick="buttonDecodeContinuous"/>
+
+</LinearLayout>
