@@ -25,4 +25,9 @@ public class GenerateActivity extends AppCompatActivity {
         startActivity(intent2);
     }
 
+
+    public void ImageDecodeButton2 (View v) {
+        Intent intent3 = new Intent(GenerateActivity.this, GenerateImageActivity2.class);
+        startActivity(intent3);
+    }
 }

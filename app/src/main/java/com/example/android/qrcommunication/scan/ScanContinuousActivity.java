@@ -85,6 +85,7 @@ public class ScanContinuousActivity extends AppCompatActivity {
                 displayView4.setText(String.valueOf(size));
 
             default:
+                //throw new IllegalArgumentException("Found empty contents");
                 break;
         }
 

@@ -28,5 +28,13 @@
         android:id="@+id/ImageDecodeButton"
         android:onClick="ImageDecodeButton"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Image 2"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/ImageDecodeButton2"
+        android:onClick="ImageDecodeButton2"/>
+
 
 </LinearLayout>

@@ -20,22 +20,27 @@ import android.widget.ZoomControls;
 import com.example.android.qrcommunication.R;
 import com.example.android.qrcommunication.engine.PlanarYUVLuminanceSource;
 import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
 import com.google.zxing.LuminanceSource;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
+import com.google.zxing.ResultMetadataType;
 import com.google.zxing.common.HybridBinarizer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Map;
 import java.util.Timer;
+import java.util.Vector;
 
 public class ScanCameraActivity extends Activity implements SurfaceHolder.Callback {
 
     //Define Variables------------------------------------------------------------------------------
     public final static String EXTRA_DECODED_FILE= "DecodedFile";
     public final static int CAMERA_CODE = 2;
-
+    private static final String ENCODE_NAME = "ISO-8859-1";
 
 
 
@@ -340,11 +345,16 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
             LuminanceSource source= buildLuminanceSourceFromCameraPreview(data, camera.getParameters());
             BinaryBitmap binBitmap = new BinaryBitmap(new HybridBinarizer(source));
 
+
+            Hashtable decodeHint = new Hashtable();
+            decodeHint.put(DecodeHintType.CHARACTER_SET, ENCODE_NAME);
+            //decodeHint.put(DecodeHintType.TRY_HARDER, true);
+
             //starts with extracting as false. Goes to this is condition, if the string equals start
             //then changes the extracting to true.
             if(!extracting){
                 try {
-                    Result result = new MultiFormatReader().decode(binBitmap);
+                    Result result = new MultiFormatReader().decode(binBitmap,decodeHint);
 
                     Toast.makeText(getApplicationContext(), result.toString() , Toast.LENGTH_LONG).show();
 
@@ -383,6 +393,9 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
                     StringResults.add(result.toString());
                     System.out.println("\n result(): >>"+StringResults+"<<");
                     //Toast.makeText(getApplicationContext(), result.toString() , Toast.LENGTH_LONG).show();
+
+                    //byte[] resultBytes=getRawBytes(result);
+
 
 
                 } catch (NotFoundException e) {
@@ -446,6 +459,27 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
     //----------------------------------------------------------------------------------------------
 
 
+
+
+    private byte[] getRawBytes(Result result) {
+        Log.i("getRawBytes()", " ");//TODO delete after debugging
+
+        Map<ResultMetadataType, Object> hashtable = result.getResultMetadata();
+        Vector<byte[]> segments = (Vector<byte[]>) hashtable
+                .get(ResultMetadataType.BYTE_SEGMENTS);
+        int byteNum = 0;
+        for (byte[] array : segments)
+            byteNum += array.length;
+        byte[] rawBytes = new byte[byteNum];
+        int index = 0;
+        for (byte[] array : segments)
+            for (int i = 0; i < array.length; i++, index++){
+                rawBytes[index] = array[i];
+//				System.out.print(rawBytes[index] + " ");//TODO delete after debugging
+            }
+
+        return rawBytes;
+    }
 
 
 
