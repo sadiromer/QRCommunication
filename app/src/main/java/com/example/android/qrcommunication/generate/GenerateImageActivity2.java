@@ -67,6 +67,7 @@ public class GenerateImageActivity2 extends AppCompatActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bmpImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
+               // byte[] byteArray = {0x4f, 0x6d, 0x65, 0x72, 0x4f, 0x6d, 0x65, 0x72,0x65, 0x72, 0x4f, 0x6d};
 
                 String Base64;
                 try {
@@ -86,7 +87,7 @@ public class GenerateImageActivity2 extends AppCompatActivity {
                 //String Base64 = encodeTobase64(bmpImage);
 
                 //Splitting the base64 strings into parts
-                int splitStringLength = 150; //Number of parts base64 is to be split
+                int splitStringLength = 500; //Number of parts base64 is to be split
                 //String Base64Parts[] = splitInParts(Base64, splitStringLength); //Splitting it into parts
                 ArrayList<String> Base64Parts = splitEqually(Base64, splitStringLength);
 
@@ -100,15 +101,24 @@ public class GenerateImageActivity2 extends AppCompatActivity {
                 //Getting the length of the string and displaying it
                 int length = Base64.length();
 
+                int numberOfPartsSplit;
+                if (length%splitStringLength==0){
+                    numberOfPartsSplit = (length / splitStringLength);
+                }
+                else
+                {
+                    numberOfPartsSplit = (length / splitStringLength)+1;
+                }
+
                 //Total number of parts being split into
-                int numberOfPartsSplit = (length / splitStringLength);
+
 
                 //int length = Base64Parts[1].length();
                 TextView displayView2 = (TextView) findViewById(R.id.base64details);
                 displayView2.setText(String.valueOf(length));
 
                 TextView displayView3 = (TextView) findViewById(R.id.base64details2);
-                displayView3.setText(String.valueOf(numberOfPartsSplit));
+                //displayView3.setText(String.valueOf(numberOfPartsSplit));
 
 
                 //Generate QR code
@@ -117,10 +127,15 @@ public class GenerateImageActivity2 extends AppCompatActivity {
                 QRCodeWriter writer = new QRCodeWriter();
 
 
+
                 //Declaring Array
                 ArrayList<Bitmap> bmp_images = new ArrayList<Bitmap>();
+
                 for (int i = 0; i < numberOfPartsSplit; i++) {
                     try {
+
+                        displayView3.setText(String.valueOf(numberOfPartsSplit));
+
                         //Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
                         //hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
 
@@ -148,7 +163,6 @@ public class GenerateImageActivity2 extends AppCompatActivity {
                 }//forloop
 
 
-
                 //Generating GIF Animation----------------------------------------------------------
                 AnimationDrawable animDrawable = new AnimationDrawable();
                 Drawable startFrame = (BitmapDrawable)getResources().getDrawable(R.drawable.start_frame);
@@ -158,7 +172,7 @@ public class GenerateImageActivity2 extends AppCompatActivity {
 
                 for (int k = 0; k < numberOfPartsSplit; k++) {
                     Drawable frame = new BitmapDrawable(bmp_images.get(k));
-                    animDrawable.addFrame(frame, 800);
+                    animDrawable.addFrame(frame, 1000);
                 }
 
                 //Drawable endFrame = (BitmapDrawable)getResources().getDrawable(R.drawable.end_frame);

@@ -18,7 +18,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
 
         <Button
             android:id="@+id/button_capture"
@@ -36,5 +37,7 @@
             android:layout_alignParentTop="true" />
 
     </RelativeLayout>
+
+
 
 </LinearLayout>

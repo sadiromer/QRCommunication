@@ -32,7 +32,8 @@
         <activity android:name=".generate.GenerateTextActivity" />
         <activity android:name=".generate.GenerateImageActivity" />
         <activity android:name=".scan.ScanCameraActivity" />
-        <activity android:name=".generate.GenerateImageActivity2"></activity>
+        <activity android:name=".generate.GenerateImageActivity2" />
+        <activity android:name=".generate.StreamingQRCodeActivity"></activity>
     </application>
 
 </manifest>

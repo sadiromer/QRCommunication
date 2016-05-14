@@ -14,7 +14,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ZoomControls;
 
 import com.example.android.qrcommunication.R;
@@ -41,6 +40,7 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
     public final static String EXTRA_DECODED_FILE= "DecodedFile";
     public final static int CAMERA_CODE = 2;
     private static final String ENCODE_NAME = "ISO-8859-1";
+    private int bufferCapacity = 1000000;
 
 
 
@@ -52,8 +52,8 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
     private Camera camera;
     private Button CaptureButton;
     private ZoomControls zoomControls;
-    private int PreviewWidth=320;
-    private int PreviewHeight=240;
+    private int PreviewWidth=640;
+    private int PreviewHeight=480;
     private int currentZoomLevel = 0, maxZoomLevel = 0;
     private Camera.Parameters cameraParameters;
     private final static int AUTOFOCUS_DELAY= 800;
@@ -337,7 +337,6 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
     }
 
 
-
     //---------------------------PreviewCallback----------------------------------------------------
     private Camera.PreviewCallback previewCallback = new Camera.PreviewCallback() {
 
@@ -356,7 +355,7 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
                 try {
                     Result result = new MultiFormatReader().decode(binBitmap,decodeHint);
 
-                    Toast.makeText(getApplicationContext(), result.toString() , Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplicationContext(), result.toString() , Toast.LENGTH_LONG).show();
 
                     if(result.toString().equals("START")){
                         stopAutofocus();
@@ -390,9 +389,13 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
                 try {
                     Result result = new MultiFormatReader().decode(binBitmap);
 
+
+                    binBitmapArray.add(binBitmap);
+
+
                     StringResults.add(result.toString());
                     System.out.println("\n result(): >>"+StringResults+"<<");
-                    //Toast.makeText(getApplicationContext(), result.toString() , Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplicationContext(), result.toString() , Toast.LENGTH_LONG).show();
 
                     //byte[] resultBytes=getRawBytes(result);
 
@@ -403,11 +406,11 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
                     // Auto-generated catch block
                     e.printStackTrace();
                 }
-                i++;
+               // i++;
 
 
 
-                binBitmapArray.add(binBitmap);
+                //binBitmapArray.add(binBitmap);
                 NumberOfBitmaps++;
 
                 Log.i("Extrating", NumberOfBitmaps +" frames added.");

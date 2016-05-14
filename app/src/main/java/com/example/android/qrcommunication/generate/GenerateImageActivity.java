@@ -68,7 +68,7 @@ public class GenerateImageActivity extends AppCompatActivity {
                 String Base64 = encodeTobase64(bmpImage);
 
                 //Splitting the base64 strings into parts
-                int splitStringLength = 250; //Number of parts base64 is to be split
+                int splitStringLength = 200; //Number of parts base64 is to be split
                 //String Base64Parts[] = splitInParts(Base64, splitStringLength); //Splitting it into parts
                 ArrayList<String> Base64Parts = splitEqually(Base64, splitStringLength);
 
@@ -82,8 +82,15 @@ public class GenerateImageActivity extends AppCompatActivity {
                 //Getting the length of the string and displaying it
                 int length = Base64.length();
 
-                //Total number of parts being split into
-                int numberOfPartsSplit = (length / splitStringLength);
+                int numberOfPartsSplit;
+                if (length%splitStringLength==0){
+                    numberOfPartsSplit = (length / splitStringLength);
+                }
+                else
+                {
+                    numberOfPartsSplit = (length / splitStringLength)+1;
+                }
+
 
                 //int length = Base64Parts[1].length();
                 TextView displayView2 = (TextView) findViewById(R.id.base64details);
@@ -103,7 +110,7 @@ public class GenerateImageActivity extends AppCompatActivity {
                 for (int i = 0; i < numberOfPartsSplit; i++) {
                     try {
                         Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
-                        hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.Q);
+                        hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
                         BitMatrix bitMatrix = writer.encode(Base64Parts.get(i), BarcodeFormat.QR_CODE, 512, 512, hintMap);
                         int width = bitMatrix.getWidth();
                         int height = bitMatrix.getHeight();
@@ -135,7 +142,7 @@ public class GenerateImageActivity extends AppCompatActivity {
 
                 for (int k = 0; k < numberOfPartsSplit; k++) {
                     Drawable frame = new BitmapDrawable(bmp_images.get(k));
-                    animDrawable.addFrame(frame, 800);
+                    animDrawable.addFrame(frame, 250);
                 }
 
                 //Drawable endFrame = (BitmapDrawable)getResources().getDrawable(R.drawable.end_frame);
