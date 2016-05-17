@@ -12,33 +12,57 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.qrcommunication.R;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.DecodeHintType;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.ResultMetadataType;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Map;
 import java.util.Vector;
 
-public class ScanContinuousActivity extends AppCompatActivity {
+public class ScanContinuousActivity2 extends AppCompatActivity {
 
     public ArrayList<String> StringResults = new ArrayList<String>();
     public int sizeScan = 0;
     public ArrayList<String> FinalString = new ArrayList<String>();
+    public ArrayList<BinaryBitmap> binBitmap = new ArrayList<BinaryBitmap>();
     public int Phase = 1;
     public String input = "";
     public Bitmap Image;
 
-    byte [] data = null;
+    Result result = null;
+    byte[] resultBytes = null;
+    private int bufferCapacity = 1000000;
+
+    ByteBuffer bytebuffer = ByteBuffer.allocate(bufferCapacity);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_continuous);
+        setContentView(R.layout.activity_scan_continuous2);
 
-        StringResults = (ArrayList<String>) getIntent().getSerializableExtra("FILES_TO_SEND");
+        StringResults = (ArrayList<String>) getIntent().getSerializableExtra("FILES_TO_SEND2");
+        //binBitmap = (ArrayList<BinaryBitmap>) getIntent().getSerializableExtra("FILES_TO_SEND2");
 
+        int binSize = binBitmap.size();
 
+        Hashtable decodeHint = new Hashtable();
+        decodeHint.put(DecodeHintType.CHARACTER_SET, "ISO-8859-1");
+/*
+        for (int y = 0; y < binSize; y++) {
+            try {
+                Result result = new MultiFormatReader().decode(binBitmap.get(y));
+                StringResults.add(result.toString());
+            } catch (NotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+*/
         //------------------------------------------------------------------------------------------
         TextView displayView = (TextView) findViewById(R.id.base64details2);
         displayView.setMovementMethod(new ScrollingMovementMethod());
@@ -58,6 +82,16 @@ public class ScanContinuousActivity extends AppCompatActivity {
                             FinalString.add(StringResults.get(i));
 
 
+                            try {
+                                result = new MultiFormatReader().decode(binBitmap.get(i));
+                                resultBytes=getRawBytes(result);
+
+
+                            } catch (NotFoundException e) {
+                                e.printStackTrace();
+                            }
+
+
                             if (StringResults.get(i).equals("START")) {
 
                                 Phase = 2;
@@ -75,6 +109,7 @@ public class ScanContinuousActivity extends AppCompatActivity {
                 displayView3.setMaxLines(3);
                 displayView3.setText(String.valueOf(FinalString));
 
+                //ByteBuffer bytebuffer = ByteBuffer.allocate(bufferCapacity);
 
                 int size = FinalString.size();
 
@@ -92,25 +127,29 @@ public class ScanContinuousActivity extends AppCompatActivity {
                 break;
         }
 
+
     }
+
 
     public void buttonDecodeGenerate (View v) {
 
+        /*
         int length = input.length();
         TextView displayView5 = (TextView) findViewById(R.id.lengthString);
         displayView5.setText(String.valueOf(length));
 
-        try {
-            data = input.getBytes("ISO-8859-1");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        Bitmap Image = BitmapFactory.decodeByteArray(data , 0, data.length);
-
-        //Image = decodeBase64(input);
+        Image = decodeBase64(input);
         ImageView QRView = (ImageView) findViewById(R.id.image_holder);
         QRView.setImageBitmap(Image);
+        */
+        bytebuffer.put(resultBytes);
+        bytebuffer.flip();//use current position as limit, then current position move to 0.
+        byte[] rawBytes = new byte[bytebuffer.limit()];
+        bytebuffer.get(rawBytes);
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(rawBytes , 0, rawBytes.length);
+        ImageView QRView = (ImageView) findViewById(R.id.image_holder);
+        QRView.setImageBitmap(bitmap);
     }
 
 

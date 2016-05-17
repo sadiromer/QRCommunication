@@ -31,20 +31,28 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+/**
+ * Class used to generate multiple QR codes when a picture is chosen
+ * An animation of the generated QR code will be shown in the ImageView
+ */
 public class GenerateImageActivity extends AppCompatActivity {
 
-    //Define Variables
+    //--------------Variables-----------------------------------------------------------------------
     private static final int REQUEST_ID = 1;
-    private static final int HALF = 2;
 
+    //______________________________________________________________________________________________
+
+
+    //-------------onCreate-------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_image);
-    }
+    }//onCreate
+    //______________________________________________________________________________________________
 
 
-    //Using this to search only for Image Types
+    //When Browse Button is clicked, only Type is set to Images, so that only Images can be chosen
     public void browseButton(View v) {
         Intent intentImage = new Intent();
         intentImage.setAction(Intent.ACTION_GET_CONTENT);
@@ -53,46 +61,47 @@ public class GenerateImageActivity extends AppCompatActivity {
         startActivityForResult(intentImage, REQUEST_ID);
     }
 
+    //Based on the Image chosen the following function takes place
+
+    //---------------onActivityResults--------------------------------------------------------------
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        InputStream imageStream = null;
-        if (requestCode == REQUEST_ID && resultCode == Activity.RESULT_OK) {
-            try {
-                Uri selectedImage = data.getData(); //path of the image file chosen
-                imageStream = getContentResolver().openInputStream(selectedImage); //streams in the image
-                Bitmap bmpImage = BitmapFactory.decodeStream(imageStream); //converts the image to bitmap
-                //((ImageView)findViewById(R.id.image_holder)).setImageBitmap(Bitmap.createScaledBitmap(original,
-                //original.getWidth() / HALF, original.getHeight() / HALF, true));
 
-                //adding me code to convert to base64
+        InputStream imageStream = null;
+
+        if (requestCode == REQUEST_ID && resultCode == Activity.RESULT_OK) {
+
+            try {
+
+                //Path of th file is chosen, streams the image and converts to bitmap
+                Uri selectedImage = data.getData();
+                imageStream = getContentResolver().openInputStream(selectedImage);
+                Bitmap bmpImage = BitmapFactory.decodeStream(imageStream);
+
+                //converts the image chosen to Base64
                 String Base64 = encodeTobase64(bmpImage);
 
                 //Splitting the base64 strings into parts
                 int splitStringLength = 200; //Number of parts base64 is to be split
-                //String Base64Parts[] = splitInParts(Base64, splitStringLength); //Splitting it into parts
                 ArrayList<String> Base64Parts = splitEqually(Base64, splitStringLength);
 
                 //Set it in textview
                 TextView displayView = (TextView) findViewById(R.id.base64text);
                 displayView.setMovementMethod(new ScrollingMovementMethod());
-                //displayView.setText(String.valueOf(Base64Parts.get(1)));
                 displayView.setText(String.valueOf(Base64));
-
 
                 //Getting the length of the string and displaying it
                 int length = Base64.length();
 
+                //Number of parts its been split into
                 int numberOfPartsSplit;
-                if (length%splitStringLength==0){
+                if (length % splitStringLength == 0) {
                     numberOfPartsSplit = (length / splitStringLength);
-                }
-                else
-                {
-                    numberOfPartsSplit = (length / splitStringLength)+1;
+                } else {
+                    numberOfPartsSplit = (length / splitStringLength) + 1;
                 }
 
 
-                //int length = Base64Parts[1].length();
                 TextView displayView2 = (TextView) findViewById(R.id.base64details);
                 displayView2.setText(String.valueOf(length));
 
@@ -100,18 +109,21 @@ public class GenerateImageActivity extends AppCompatActivity {
                 displayView3.setText(String.valueOf(numberOfPartsSplit));
 
 
-                //Generate QR code
+                //--------------------------Generate QR code----------------------------------------
 
                 //Declaring QR code generator
                 QRCodeWriter writer = new QRCodeWriter();
 
                 //Declaring Array
                 ArrayList<Bitmap> bmp_images = new ArrayList<Bitmap>();
+
                 for (int i = 0; i < numberOfPartsSplit; i++) {
                     try {
-                        Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
+                        Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap =
+                                new Hashtable<EncodeHintType, ErrorCorrectionLevel>();
                         hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-                        BitMatrix bitMatrix = writer.encode(Base64Parts.get(i), BarcodeFormat.QR_CODE, 512, 512, hintMap);
+                        BitMatrix bitMatrix = writer.encode(Base64Parts.get(i),
+                                BarcodeFormat.QR_CODE, 512, 512, hintMap);
                         int width = bitMatrix.getWidth();
                         int height = bitMatrix.getHeight();
                         Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
@@ -123,38 +135,37 @@ public class GenerateImageActivity extends AppCompatActivity {
                             }
                         }//for loop to generate QR Code Bitmap
 
-                        //the code added for arraylist of images
+                        //add each QR code generated to an ArrayList
                         bmp_images.add(i, bmp);
 
                     } catch (WriterException e) {
                         e.printStackTrace();
                     }
                 }//forloop
+                //__________________________________________________________________________________
 
 
-
-                //Generating GIF Animation----------------------------------------------------------
+                //--------------Generating Streaming Animation of QR codes--------------------------
                 AnimationDrawable animDrawable = new AnimationDrawable();
-                Drawable startFrame = (BitmapDrawable)getResources().getDrawable(R.drawable.start_frame);
+                Drawable startFrame = (BitmapDrawable) getResources().
+                        getDrawable(R.drawable.start_frame);
 
-                //duration in milliseconds
+                //duration in milliseconds for "START" frame
                 animDrawable.addFrame(startFrame, 1000);
 
                 for (int k = 0; k < numberOfPartsSplit; k++) {
                     Drawable frame = new BitmapDrawable(bmp_images.get(k));
+
+                    //duration in milliseconds for each QR code
                     animDrawable.addFrame(frame, 250);
                 }
-
-                //Drawable endFrame = (BitmapDrawable)getResources().getDrawable(R.drawable.end_frame);
-
-                //duration in milliseconds
-                //animDrawable.addFrame(endFrame, 800);
 
 
                 ImageView imageAnim = (ImageView) findViewById(R.id.image_holder);
                 imageAnim.setBackgroundDrawable(animDrawable);
                 animDrawable.start();
-                //----------------------------------------------------------------------------------
+                //__________________________________________________________________________________
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -170,6 +181,7 @@ public class GenerateImageActivity extends AppCompatActivity {
 
         }//if as requested from button
     }//onActivityResult
+    //______________________________________________________________________________________________
 
 
     //___________________________________FUNCTIONS USED_____________________________________________
@@ -185,7 +197,6 @@ public class GenerateImageActivity extends AppCompatActivity {
         Log.e("LOOK", imageEncoded);
         return imageEncoded;
     }
-
 
 
     //Function to Split String

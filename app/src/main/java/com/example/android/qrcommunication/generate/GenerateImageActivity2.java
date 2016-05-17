@@ -32,7 +32,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class GenerateImageActivity2 extends AppCompatActivity {
-    //Define Variables
+
+    //Define Variables----------------------
     private static final int REQUEST_ID = 1;
     private static final int HALF = 2;
     private static final String ENCODE_NAME = "ISO-8859-1";
@@ -87,7 +88,7 @@ public class GenerateImageActivity2 extends AppCompatActivity {
                 //String Base64 = encodeTobase64(bmpImage);
 
                 //Splitting the base64 strings into parts
-                int splitStringLength = 500; //Number of parts base64 is to be split
+                int splitStringLength = 200; //Number of parts base64 is to be split
                 //String Base64Parts[] = splitInParts(Base64, splitStringLength); //Splitting it into parts
                 ArrayList<String> Base64Parts = splitEqually(Base64, splitStringLength);
 
@@ -172,7 +173,7 @@ public class GenerateImageActivity2 extends AppCompatActivity {
 
                 for (int k = 0; k < numberOfPartsSplit; k++) {
                     Drawable frame = new BitmapDrawable(bmp_images.get(k));
-                    animDrawable.addFrame(frame, 1000);
+                    animDrawable.addFrame(frame, 250);
                 }
 
                 //Drawable endFrame = (BitmapDrawable)getResources().getDrawable(R.drawable.end_frame);

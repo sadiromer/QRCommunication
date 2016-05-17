@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black_overlay"
     tools:context="com.example.android.qrcommunication.MainActivity">
 
     <TextView
@@ -12,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:textColor="#3F51B5"
         android:textSize="24dp"/>
 
     <View
@@ -45,4 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:background="#9E9E9E" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@id/image_holder"/>
 </LinearLayout>

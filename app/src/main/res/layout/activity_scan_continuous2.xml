@@ -1,33 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:keepScreenOn="true"
-    android:background="@color/black_overlay"
-    tools:context="com.example.android.qrcommunication.generate.GenerateImageActivity">
+    tools:context="com.example.android.qrcommunication.scan.ScanContinuousActivity2">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Select Image to be encoded:" />
-
-    <LinearLayout
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Browse"
-            android:layout_weight="1"
-            android:id="@+id/browseButton"
-            android:onClick="browseButton"/>
-
-    </LinearLayout>
+        android:text="Generate"
+        android:id="@+id/buttonDecodeGenerate"
+        android:onClick="buttonDecodeGenerate"/>
 
 
     <ImageView
@@ -46,13 +30,32 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Length of the converted String: "
+            android:text="Total Scanned QR Codes: "
             android:textColor="#ff0000ff"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/base64details" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Size: "
+            android:textColor="#ff0000ff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sizeString" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,14 +66,27 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Number of Parts split into: "
+            android:text="Length: "
             android:textColor="#ff0000ff"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/base64details2" />
+            android:id="@+id/lengthString" />
     </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Detected Text: "
+        android:textColor="#ff0000ff"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/base64details2" />
 
 
 

@@ -34,7 +34,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.Vector;
 
-public class ScanCameraActivity extends Activity implements SurfaceHolder.Callback {
+public class ScanCameraActivity2 extends Activity implements SurfaceHolder.Callback {
 
     //---------Define Variables---------------------------------------------------------------------
     private static final String ENCODE_NAME = "ISO-8859-1";
@@ -78,10 +78,16 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
         stopAutofocus();
         camera.stopPreview();
         previewRunning = false;
-        Intent intent = new Intent(ScanCameraActivity.this, ScanContinuousActivity.class);
-        intent.putExtra("FILES_TO_SEND", output);
-        startActivity(intent);
+        Intent intent2 = new Intent(ScanCameraActivity2.this, ScanContinuousActivity2.class);
+        intent2.putExtra("FILES_TO_SEND2", output);
+        //intent2.putExtra("FILES_TO_SEND2", binBitmapArray);
+        startActivity(intent2);
 
+        /*
+        Intent intent3 = new Intent(ScanCameraActivity2.this, ScanContinuousActivity2.class);
+        intent3.putExtra("FILES_TO_SEND2", binBitmapArray);
+        startActivity(intent3);
+*/
         finish();
     }
 
@@ -134,11 +140,11 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
 
 
     //-----------------------onCreate---------------------------------------------------------------
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_camera);
-
+        setContentView(R.layout.activity_scan_camera2);
 
         surfaceView = (SurfaceView) findViewById(R.id.surface_camera);
         zoomControls = (ZoomControls) findViewById(R.id.zoomControls);
@@ -201,7 +207,6 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
 
 
         handler = new Handler();
-
     }//onCreate
 
     //______________________________________________________________________________________________
@@ -328,6 +333,8 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
 
             Hashtable decodeHint = new Hashtable();
             decodeHint.put(DecodeHintType.CHARACTER_SET, ENCODE_NAME);
+            //decodeHint.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
+
 
             //starts with extracting as false. Goes to this is condition, if the string equals start
             //then changes the extracting to true.
@@ -356,7 +363,7 @@ public class ScanCameraActivity extends Activity implements SurfaceHolder.Callba
 
                 try {
 
-                    Result result = new MultiFormatReader().decode(binBitmap);
+                    Result result = new MultiFormatReader().decode(binBitmap, decodeHint);
 
 
                     binBitmapArray.add(binBitmap);

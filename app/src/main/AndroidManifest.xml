@@ -33,7 +33,8 @@
         <activity android:name=".generate.GenerateImageActivity" />
         <activity android:name=".scan.ScanCameraActivity" />
         <activity android:name=".generate.GenerateImageActivity2" />
-        <activity android:name=".generate.StreamingQRCodeActivity"></activity>
+        <activity android:name=".scan.ScanCameraActivity2" />
+        <activity android:name=".scan.ScanContinuousActivity2"></activity>
     </application>
 
 </manifest>
