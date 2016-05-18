@@ -1,12 +1,9 @@
 package com.example.android.qrcommunication;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.example.android.qrcommunication.generate.GenerateActivity;
 import com.example.android.qrcommunication.scan.ScanActivity;
@@ -22,11 +19,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                R.drawable.main);
-
-        ImageView image = (ImageView) findViewById(R.id.image_holder);
-        image.setImageBitmap(icon);
     }//onCreate
 
    //Click Button to go to Generate Activity

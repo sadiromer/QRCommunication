@@ -4,38 +4,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#B0BEC5"
+    android:background="#BDBDBD"
     tools:context="com.example.android.qrcommunication.generate.GenerateActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Select File to be encoded:" />
-
-    <Button
+        android:text="Generate"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textColor="#3F51B5"
+        android:textSize="20dp"/>
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#9E9E9E" />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:textSize="16dp"
         android:text="Text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/TextDecodeButton"
         android:onClick="TextDecodeButton"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Image"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:textSize="16dp"
+        android:text="Image - Single"
+        android:id="@+id/ImageDecodeButton2"
+        android:onClick="ImageDecodeButton2"/>
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_margin="4dp"
+        android:textSize="16dp"
+        android:text="Image - Continuous"
         android:id="@+id/ImageDecodeButton"
         android:onClick="ImageDecodeButton"/>
 
-    <Button
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Image 2"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/ImageDecodeButton2"
-        android:onClick="ImageDecodeButton2"/>
+        android:layout_height="4dp"
+        android:background="#9E9E9E" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/main"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 
 
 </LinearLayout>

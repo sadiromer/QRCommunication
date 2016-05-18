@@ -6,6 +6,7 @@
     android:layout_gravity="center_vertical"
     android:gravity="center_vertical"
     android:orientation="vertical"
+    android:background="#BDBDBD"
     tools:context="com.example.android.qrcommunication.scan.ScanCameraActivity">
 
     <SurfaceView

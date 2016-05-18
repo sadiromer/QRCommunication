@@ -15,7 +15,6 @@ import com.example.android.qrcommunication.R;
 import com.google.zxing.Result;
 import com.google.zxing.ResultMetadataType;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Vector;
@@ -100,15 +99,8 @@ public class ScanContinuousActivity extends AppCompatActivity {
         TextView displayView5 = (TextView) findViewById(R.id.lengthString);
         displayView5.setText(String.valueOf(length));
 
-        try {
-            data = input.getBytes("ISO-8859-1");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
-        Bitmap Image = BitmapFactory.decodeByteArray(data , 0, data.length);
-
-        //Image = decodeBase64(input);
+        Image = decodeBase64(input);
         ImageView QRView = (ImageView) findViewById(R.id.image_holder);
         QRView.setImageBitmap(Image);
     }

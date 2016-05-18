@@ -25,8 +25,4 @@ public class ScanActivity extends AppCompatActivity {
         startActivity(intent2);
     }
 
-    public void buttonDecodeContinuous2 (View v) {
-        Intent intent3 = new Intent(ScanActivity.this, ScanCameraActivity2.class);
-        startActivity(intent3);
-    }
 }

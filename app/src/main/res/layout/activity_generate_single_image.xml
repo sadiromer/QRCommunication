@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:keepScreenOn="true"
-    tools:context="com.example.android.qrcommunication.generate.GenerateImageActivity2">
+    android:background="#BDBDBD"
+    tools:context="com.example.android.qrcommunication.generate.GenerateSingleImageActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/black"
         android:text="Select Image to be encoded:" />
 
     <Button
@@ -34,6 +35,37 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/insertText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="Insert Picture Number: " />
+
+        <EditText
+            android:id="@+id/pictureNumber"
+            android:inputType="number"
+            android:maxLength = "2"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ok"
+            android:id="@+id/okButton"
+            android:onClick="okButton"
+            />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Length of the converted String: "
@@ -43,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/base64details" />
+
     </LinearLayout>
 
     <LinearLayout

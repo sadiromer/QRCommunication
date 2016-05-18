@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#BDBDBD"
     tools:context="com.example.android.qrcommunication.scan.ScanSingleActivity">
 
     <Button
@@ -11,7 +12,6 @@
         android:layout_height="wrap_content"
         android:text="Scan"
         android:id="@+id/buttonDecode"
-        android:textColor="#ff0000ff"
         android:onClick="buttonDecode"
         />
 
@@ -22,14 +22,29 @@
         android:background="#E0E0E0"
         android:id="@+id/imageDecoded" />
 
-    <Button
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create"
-        android:id="@+id/buttonCreate"
-        android:textColor="#ff0000ff"
-        android:onClick="buttonCreate"
-        />
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Create"
+            android:id="@+id/buttonCreate"
+            android:onClick="buttonCreate"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Save"
+            android:id="@+id/buttonSave"
+            android:onClick="buttonSave"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"

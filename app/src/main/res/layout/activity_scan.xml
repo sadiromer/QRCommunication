@@ -7,28 +7,83 @@
     android:background="#BDBDBD"
     tools:context="com.example.android.qrcommunication.scan.ScanActivity">
 
-    <Button
+    <TextView
+        android:text="Scanner"
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textColor="#3F51B5"
+        android:textSize="20dp"/>
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#9E9E9E" />
+
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:textSize="18dp"
         android:text="Single"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/buttonDecodeSingle"
         android:onClick="buttonDecodeSingle"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:textSize="18dp"
         android:text="Continuous"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/buttonDecodeContinuous"
         android:onClick="buttonDecodeContinuous"/>
 
-    <Button
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="#9E9E9E" />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Continuous2"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/buttonDecodeContinuous2"
-        android:onClick="buttonDecodeContinuous2"/>
+        android:textSize="16dp"
+        android:text=" Use:" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="      Single - Scan Text / Scan Image" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="      Continuous - Scan Image" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/main"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+
 
 </LinearLayout>
